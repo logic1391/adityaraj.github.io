@@ -1,131 +1,205 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aditya Raj | Portfolio</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d0d0d;
-      color: white;
-      transition: background-color 0.5s, color 0.5s;
-    }/* Floating About Me Card */
-.about-card {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background: rgba(20, 20, 20, 0.95);
-  border-radius: 15px;
-  padding: 20px;
-  width: 250px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s, background 0.3s;
-}
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
 
-.about-card:hover {
-  transform: translateY(-5px);
-  background: rgba(30, 30, 30, 0.95);
-}
+    /* About Card */
+    .about-card {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 280px;
+      background: linear-gradient(145deg, #ff5f6d, #ffc371);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(255, 95, 109, 0.6);
+      color: #111;
+      font-weight: 600;
+      animation: floatUp 2s ease-in-out infinite alternate;
+      transition: box-shadow 0.3s ease;
+      z-index: 10;
+    }
+    .about-card:hover {
+      box-shadow: 0 15px 40px rgba(255, 95, 109, 0.9);
+    }
+    .about-card h2 {
+      margin-top: 0;
+      font-size: 2.4rem;
+      letter-spacing: 1.2px;
+    }
+    .about-card p {
+      margin: 10px 0;
+      font-weight: 500;
+    }
+    .about-card strong {
+      color: #4b044f;
+      text-shadow: 0 0 8px #f4d35e;
+    }
 
-.about-card h2 {
-  margin-top: 0;
-  color: #00ffcc;
-}
+    /* Social Links with pulse animation */
+    .about-card a {
+      color: #4b044f;
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: 700;
+      position: relative;
+      animation: pulse 3s infinite;
+      transition: color 0.3s ease;
+    }
+    .about-card a:hover {
+      color: #ffe066;
+      text-shadow: 0 0 6px #ffe066;
+    }
 
-.projects, .videos {
-  margin-left: 300px;
-  padding: 40px;
-}
+    /* Container for Projects & Videos */
+    .main-content {
+      margin-left: 340px;
+      padding: 40px 50px;
+      animation: fadeIn 1.5s ease forwards;
+    }
 
-h1 {
-  color: #00ffcc;
-  border-bottom: 2px solid #00ffcc;
-  display: inline-block;
-  margin-bottom: 20px;
-}
+    /* Headings */
+    h1 {
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #ffe066;
+      margin-bottom: 25px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 12px #ff5f6d;
+    }
 
-a {
-  color: #00ffcc;
-  text-decoration: none;
-  transition: color 0.3s;
-}
+    /* Project section */
+    .projects p {
+      font-size: 1.1rem;
+      color: #fff8dc;
+      max-width: 700px;
+      line-height: 1.5;
+      margin-bottom: 60px;
+    }
 
-a:hover {
-  color: #ffcc00;
-  text-decoration: underline;
-}
+    /* Video grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
 
-/* Video Showcase */
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
+    /* Individual video item */
+    .video-item {
+      background: linear-gradient(135deg, #4b044f, #1f005c);
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 10px 25px rgba(255, 240, 120, 0.4);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+    }
+    .video-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(255, 240, 120, 0.8);
+    }
 
-.video-item {
-  background: #1a1a1a;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  padding: 10px;
-}
+    /* Instagram embed blockquote fix */
+    .video-item blockquote {
+      border-radius: 15px !important;
+      overflow: hidden !important;
+    }
 
-.video-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-}
+    /* Buttons */
+    .toggle-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #ff5f6d;
+      color: #fff;
+      border: none;
+      padding: 14px 26px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 95, 109, 0.7);
+      transition: background 0.3s ease;
+      z-index: 20;
+    }
+    .toggle-btn:hover {
+      background: #ffc371;
+      color: #4b044f;
+      box-shadow: 0 8px 25px rgba(255, 195, 113, 0.9);
+    }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .about-card {
-    position: static;
-    width: auto;
-    margin: 20px;
-  }
-  .projects, .videos {
-    margin-left: 0;
-    padding: 20px;
-  }
-}
+    /* Animations */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-15px);
+      }
+    }
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 6px #4b044f;
+      }
+      50% {
+        text-shadow: 0 0 15px #ffcc33;
+      }
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
 
-/* Light/Dark Mode */
-.light-mode {
-  background-color: #f4f4f4;
-  color: #111;
-}
-.light-mode .about-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
-}
-.toggle-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #00ffcc;
-  color: #111;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-.toggle-btn:hover {
-  background: #ffcc00;
-}
-
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main-content {
+        margin-left: 0;
+        padding: 25px 20px 60px 20px;
+      }
+      .about-card {
+        position: static;
+        width: auto;
+        margin: 20px auto;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(255, 95, 109, 0.6);
+        animation: none;
+      }
+      .about-card h2 {
+        font-size: 2rem;
+      }
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      .toggle-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
-<body>  <div class="about-card">
+<body>
+
+  <div class="about-card">
     <h2>Aditya Raj</h2>
     <p>Coder | Video Editor | Creator</p>
     <p><strong>Languages:</strong> Python, JavaScript, HTML, CSS</p>
     <p><strong>Projects:</strong> 
-      <a href="#">Project 1</a> | 
-      <a href="#">Project 2</a> | 
-      <a href="#">Project 3</a>
+      <a href="#" target="_blank">Project 1</a> | 
+      <a href="#" target="_blank">Project 2</a> | 
+      <a href="#" target="_blank">Project 3</a>
     </p>
     <p><strong>Socials:</strong> 
       <a href="https://www.linkedin.com" target="_blank">LinkedIn</a> | 
@@ -133,27 +207,38 @@ a:hover {
       <a href="https://www.instagram.com/logix.10?igsh=MWRpam55MjVwMmwyaA==" target="_blank">Instagram</a> | 
       <a href="https://youtube.com/@messi.jr10?si=TmxkvXD3aclG82Gh" target="_blank">YouTube</a>
     </p>
-  </div>  <div class="projects">
-    <h1>Coding Projects</h1>
-    <p>Showcase of my coding projects will go here. Replace these with actual links and descriptions later.</p>
-  </div>  <div class="videos">
-    <h1>Video Editing Showcase</h1>
-    <div class="video-grid">
-      <div class="video-item">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMe4ksJB2IF/?igsh=cmRueW5md2I5MGk4" data-instgrm-version="14"></blockquote>
-      </div>
-      <div class="video-item">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DLHByv3h0Pc/?igsh=MXM5djhhZ2xyYTlqZA==" data-instgrm-version="14"></blockquote>
-      </div>
-      <div class="video-item">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DGeq2zChj9x/?igsh=NDM1bHdoN2MyYXdh" data-instgrm-version="14"></blockquote>
-      </div>
-    </div>
-  </div><button class="toggle-btn" onclick="toggleMode()">Toggle Light/Dark</button>
+  </div>
 
-  <script async src="//www.instagram.com/embed.js"></script>  <script>
+  <div class="main-content">
+    <section class="projects">
+      <h1>Coding Projects</h1>
+      <p>Showcase of my coding projects will go here. Replace these with actual links and descriptions later.</p>
+    </section>
+
+    <section class="videos">
+      <h1>Video Editing Showcase</h1>
+      <div class="video-grid">
+        <div class="video-item">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMe4ksJB2IF/?igsh=cmRueW5md2I5MGk4" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="video-item">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DLHByv3h0Pc/?igsh=MXM5djhhZ2xyYTlqZA==" data-instgrm-version="14"></blockquote>
+        </div>
+        <div class="video-item">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DGeq2zChj9x/?igsh=NDM1bHdoN2MyYXdh" data-instgrm-version="14"></blockquote>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <button class="toggle-btn" onclick="toggleMode()">Toggle Light/Dark</button>
+
+  <script async src="//www.instagram.com/embed.js"></script>
+  <script>
     function toggleMode() {
       document.body.classList.toggle('light-mode');
     }
-  </script></body>
+  </script>
+
+</body>
 </html>
