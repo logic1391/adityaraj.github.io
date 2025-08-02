@@ -2,17 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aditya Raj | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+    :root {
+      --primary-color: #ff5f6d;
+      --secondary-color: #ffc371;
+      --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      --text-color: #fff;
+      --card-bg: rgba(255,255,255,0.08);
+    }
 
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      color: #f0f0f0;
+      background: var(--bg-gradient);
+      color: var(--text-color);
       overflow-x: hidden;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    #bgCanvas, #shapesCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    #shapesCanvas {
+      z-index: -1;
+    }
+
+    body.light-mode {
+      --bg-gradient: linear-gradient(135deg, #ffffff, #e4e9f0);
+      --text-color: #111;
+      --card-bg: rgba(0,0,0,0.05);
     }
 
     /* About Card */
@@ -21,211 +49,202 @@
       top: 20px;
       left: 20px;
       width: 280px;
-      background: linear-gradient(145deg, #ff5f6d, #ffc371);
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
       border-radius: 20px;
       padding: 25px;
-      box-shadow: 0 8px 30px rgba(255, 95, 109, 0.6);
-      color: #111;
-      font-weight: 600;
-      animation: floatUp 2s ease-in-out infinite alternate;
-      transition: box-shadow 0.3s ease;
-      z-index: 10;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      animation: floatUp 3s ease-in-out infinite alternate;
+      transition: transform 0.3s, background 0.5s, color 0.5s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .about-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 1s ease;
     }
     .about-card:hover {
-      box-shadow: 0 15px 40px rgba(255, 95, 109, 0.9);
+      transform: translateY(-5px) scale(1.02);
     }
     .about-card h2 {
       margin-top: 0;
-      font-size: 2.4rem;
-      letter-spacing: 1.2px;
+      font-size: 2.2rem;
+      background: linear-gradient(to right, #ff5f6d, #ffc371);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .about-card p {
-      margin: 10px 0;
-      font-weight: 500;
-    }
-    .about-card strong {
-      color: #4b044f;
-      text-shadow: 0 0 8px #f4d35e;
-    }
+    .about-card p { margin: 10px 0; }
 
-    /* Social Links with pulse animation */
-    .about-card a {
-      color: #4b044f;
-      text-decoration: none;
+    /* Social Icons */
+    .social-icons a {
+      text-decoration: none; /* Removes underline */
       margin: 0 8px;
-      font-weight: 700;
-      position: relative;
-      animation: pulse 3s infinite;
-      transition: color 0.3s ease;
+      font-size: 1.8rem;
+      transition: transform 0.3s, text-shadow 0.3s;
     }
-    .about-card a:hover {
-      color: #ffe066;
-      text-shadow: 0 0 6px #ffe066;
+    .social-icons a:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 15px currentColor;
     }
 
-    /* Container for Projects & Videos */
+    /* Main content */
     .main-content {
       margin-left: 340px;
-      padding: 40px 50px;
-      animation: fadeIn 1.5s ease forwards;
+      padding: 50px;
     }
 
-    /* Headings */
     h1 {
-      font-weight: 700;
-      font-size: 2.8rem;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
       color: #ffe066;
-      margin-bottom: 25px;
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 12px #ff5f6d;
+      text-shadow: 0 0 12px rgba(255,240,100,0.6);
     }
 
-    /* Project section */
-    .projects p {
-      font-size: 1.1rem;
-      color: #fff8dc;
-      max-width: 700px;
-      line-height: 1.5;
-      margin-bottom: 60px;
-    }
-
-    /* Video grid */
+    /* Video Grid */
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    /* Individual video item */
     .video-item {
-      background: linear-gradient(135deg, #4b044f, #1f005c);
+      position: relative;
+      background: var(--card-bg);
       border-radius: 18px;
-      padding: 10px;
-      box-shadow: 0 10px 25px rgba(255, 240, 120, 0.4);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
       overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      height: 380px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .video-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 1s ease;
     }
     .video-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(255, 240, 120, 0.8);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(255, 195, 113, 0.5);
     }
 
-    /* Instagram embed blockquote fix */
-    .video-item blockquote {
-      border-radius: 15px !important;
-      overflow: hidden !important;
+    /* Autoplay Video */
+    .video-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      pointer-events: none;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
     }
 
-    /* Buttons */
+    /* Clickable Overlay */
+    .video-item a {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 5;
+    }
+
+    /* Toggle button */
     .toggle-btn {
       position: fixed;
       bottom: 25px;
       right: 25px;
-      background: #ff5f6d;
+      background: linear-gradient(to right, #ff5f6d, #ffc371);
       color: #fff;
       border: none;
-      padding: 14px 26px;
+      padding: 14px 28px;
       font-size: 1.1rem;
       font-weight: 700;
       border-radius: 30px;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(255, 95, 109, 0.7);
-      transition: background 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
       z-index: 20;
     }
     .toggle-btn:hover {
-      background: #ffc371;
-      color: #4b044f;
-      box-shadow: 0 8px 25px rgba(255, 195, 113, 0.9);
+      transform: scale(1.05);
     }
 
-    /* Animations */
     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-15px);
-      }
-    }
-    @keyframes pulse {
-      0%, 100% {
-        text-shadow: 0 0 6px #4b044f;
-      }
-      50% {
-        text-shadow: 0 0 15px #ffcc33;
-      }
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
     }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .main-content {
         margin-left: 0;
-        padding: 25px 20px 60px 20px;
+        padding: 30px 20px;
       }
       .about-card {
         position: static;
         width: auto;
         margin: 20px auto;
-        text-align: center;
-        box-shadow: 0 10px 40px rgba(255, 95, 109, 0.6);
         animation: none;
       }
-      .about-card h2 {
-        font-size: 2rem;
-      }
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-      .toggle-btn {
-        bottom: 15px;
-        right: 15px;
-        padding: 12px 20px;
-        font-size: 1rem;
-      }
+      .video-item { height: 300px; }
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+  <canvas id="shapesCanvas"></canvas>
 
-  <div class="about-card">
+  <div class="about-card hidden">
     <h2>Aditya Raj</h2>
     <p>Coder | Video Editor | Creator</p>
     <p><strong>Languages:</strong> Python, JavaScript, HTML, CSS</p>
     <p><strong>Projects:</strong> 
-      <a href="#" target="_blank">Project 1</a> | 
-      <a href="#" target="_blank">Project 2</a> | 
-      <a href="#" target="_blank">Project 3</a>
+      <a href="#">Project 1</a> | 
+      <a href="#">Project 2</a> | 
+      <a href="#">Project 3</a>
     </p>
-    <p><strong>Socials:</strong> 
-      <a href="https://www.linkedin.com" target="_blank">LinkedIn</a> | 
-      <a href="https://github.com" target="_blank">GitHub</a> | 
-      <a href="https://www.instagram.com/logix.10?igsh=MWRpam55MjVwMmwyaA==" target="_blank">Instagram</a> | 
-      <a href="https://youtube.com/@messi.jr10?si=TmxkvXD3aclG82Gh" target="_blank">YouTube</a>
-    </p>
+    <p><strong>Connect:</strong></p>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/logix.10" target="_blank" style="color:#E4405F;">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.linkedin.com" target="_blank" style="color:#0077B5;">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://www.youtube.com/@messi.jr10" target="_blank" style="color:#FF0000;">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://github.com/logic1391" target="_blank" style="color:#ffffff;">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
   </div>
 
   <div class="main-content">
-    <section class="projects">
+    <section class="projects hidden">
       <h1>Coding Projects</h1>
-      <p>Showcase of my coding projects will go here. Replace these with actual links and descriptions later.</p>
+      <p>Explore some of my coolest coding projects, blending creativity and functionality.</p>
     </section>
 
-    <section class="videos">
+    <section class="videos hidden">
       <h1>Video Editing Showcase</h1>
       <div class="video-grid">
-        <div class="video-item">
-          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMe4ksJB2IF/?igsh=cmRueW5md2I5MGk4" data-instgrm-version="14"></blockquote>
+        <div class="video-item hidden">
+          <video autoplay muted loop playsinline>
+            <source src="Videos\Njr.mp4" type="video/mp4">
+          </video>
+          <a href="https://www.instagram.com/reel/DMe4ksJB2IF/" target="_blank"></a>
         </div>
-        <div class="video-item">
-          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DLHByv3h0Pc/?igsh=MXM5djhhZ2xyYTlqZA==" data-instgrm-version="14"></blockquote>
+        <div class="video-item hidden">
+          <video autoplay muted loop playsinline>
+            <source src="Videos\Messi Heavensent.mp4" type="video/mp4">
+          </video>
+          <a href="https://www.instagram.com/reel/DLHByv3h0Pc/" target="_blank"></a>
         </div>
-        <div class="video-item">
-          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DGeq2zChj9x/?igsh=NDM1bHdoN2MyYXdh" data-instgrm-version="14"></blockquote>
+        <div class="video-item hidden">
+          <video autoplay muted loop playsinline>
+            <source src="Videos\Meltdown 🧊 Messi.mp4" type="video/mp4">
+          </video>
+          <a href="https://www.instagram.com/reel/DGeq2zChj9x/" target="_blank"></a>
         </div>
       </div>
     </section>
@@ -233,12 +252,109 @@
 
   <button class="toggle-btn" onclick="toggleMode()">Toggle Light/Dark</button>
 
-  <script async src="//www.instagram.com/embed.js"></script>
   <script>
     function toggleMode() {
       document.body.classList.toggle('light-mode');
     }
-  </script>
 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+
+    // Particle Background
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 100; i++) particles.push(new Particle());
+    }
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    initParticles();
+    animateParticles();
+
+    // Floating Colorful Shapes
+    const shapeCanvas = document.getElementById('shapesCanvas');
+    const sctx = shapeCanvas.getContext('2d');
+    function resizeShapeCanvas() {
+      shapeCanvas.width = window.innerWidth;
+      shapeCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeShapeCanvas);
+    resizeShapeCanvas();
+
+    class Shape {
+      constructor() {
+        this.x = Math.random() * shapeCanvas.width;
+        this.y = Math.random() * shapeCanvas.height;
+        this.size = Math.random() * 50 + 20;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = `hsla(${Math.random()*360}, 70%, 50%, 0.3)`;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < -this.size || this.x > shapeCanvas.width+this.size) this.speedX *= -1;
+        if (this.y < -this.size || this.y > shapeCanvas.height+this.size) this.speedY *= -1;
+      }
+      draw() {
+        sctx.fillStyle = this.color;
+        sctx.beginPath();
+        sctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        sctx.fill();
+      }
+    }
+
+    let shapes = [];
+    for(let i=0;i<20;i++) shapes.push(new Shape());
+
+    function animateShapes() {
+      sctx.clearRect(0, 0, shapeCanvas.width, shapeCanvas.height);
+      shapes.forEach(sh => { sh.update(); sh.draw(); });
+      requestAnimationFrame(animateShapes);
+    }
+    animateShapes();
+  </script>
 </body>
 </html>
