@@ -288,8 +288,8 @@
       background: linear-gradient(45deg, #ff5f6d, #ffc371);
       border: none;
       color: white;
-      font-size: 2rem;
-      padding: 8px 14px;
+      font-size: 1.5rem;
+      padding: 6px 10px;
       border-radius: 50%;
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(255, 111, 97, 0.7);
@@ -303,11 +303,11 @@
     }
 
     .carousel-arrow.left {
-      left: -40px;
+      left: 10px;
     }
 
     .carousel-arrow.right {
-      right: -40px;
+      right: 10px;
     }
 
     @media (max-width: 720px) {
@@ -411,34 +411,32 @@
 
   <!-- Carousel Section -->
   <h2 class="section-title">Video Editing Showcase</h2>
-
-  <div class="carousel-container">
-    <button class="carousel-arrow left">&#8592;</button>
-    <div class="carousel" id="carousel">
-      <div class="carousel-item center">
-        <iframe
-          src="https://www.instagram.com/reel/DMe4ksJB2IF/embed"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
-      <div class="carousel-item side">
-        <iframe
-          src="https://www.instagram.com/reel/DLHByv3h0Pc/embed"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
-      <div class="carousel-item side">
-        <iframe
-          src="https://www.instagram.com/reel/DGeq2zChj9x/embed"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
+<div class="carousel-container">
+  <button class="carousel-arrow left" onclick="moveCarousel(-1)">&#8592;</button>
+  <div class="carousel" id="carousel">
+    <div class="carousel-item">
+      <iframe src="https://www.instagram.com/reel/DMe4ksJB2IF/embed" allowfullscreen loading="lazy"></iframe>
     </div>
-    <button class="carousel-arrow right">&#8594;</button>
+    <div class="carousel-item">
+      <iframe src="https://www.instagram.com/reel/DLHByv3h0Pc/embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="carousel-item">
+      <iframe src="https://www.instagram.com/reel/DGeq2zChj9x/embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="carousel-item">
+      <iframe src="https://www.instagram.com/reel/DLCivZ6hcGI/embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="carousel-item">
+      <iframe src="https://www.instagram.com/reel/DJnKQvnheXW/embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="carousel-item">
+      <iframe src="https://www.instagram.com/reel/DAIhnmLoR9y/embed" allowfullscreen loading="lazy"></iframe>
+    </div>
   </div>
+  <button class="carousel-arrow right" onclick="moveCarousel(1)">&#8594;</button>
+</div>
+
+
 
   <script>
     const carousel = document.getElementById("carousel");
@@ -493,5 +491,47 @@
     window.addEventListener("load", () => updateCarousel(false));
     window.addEventListener("resize", () => updateCarousel(false));
   </script>
+<script>
+  // Renamed to avoid redeclaration
+  const carousel2 = document.getElementById("carousel");
+  const items2 = carousel2.children;
+  // let currentIndex = 0; // Removed duplicate declaration
+
+  function updateCarousel2() {
+    const total = items2.length;
+
+    for (let i = 0; i < total; i++) {
+      items2[i].classList.remove("center", "side", "hidden");
+    }
+
+    // Mark center item
+    items2[currentIndex].classList.add("center");
+
+    // Previous
+    const prevIndex = (currentIndex - 1 + total) % total;
+    items2[prevIndex].classList.add("side");
+
+    // Next
+    const nextIndex = (currentIndex + 1) % total;
+    items2[nextIndex].classList.add("side");
+
+    // Hide all others
+    for (let i = 0; i < total; i++) {
+      if (![currentIndex, prevIndex, nextIndex].includes(i)) {
+        items2[i].classList.add("hidden");
+      }
+    }
+  }
+
+  function moveCarousel2(direction) {
+    const total = items2.length;
+    currentIndex = (currentIndex + direction + total) % total;
+    updateCarousel2();
+  }
+
+  // Initialize on load
+  updateCarousel2();
+</script>
+
 </body>
 </html>
