@@ -113,30 +113,26 @@
       font-size: 16px;
     }
     .languages span {
-      display: inline-flex;
-      align-items: center;
-      margin-right: 15px;
-      font-weight: 600;
-      cursor: default;
-      user-select: none;
-    }
-    .languages span i {
-      margin-right: 6px;
-      font-size: 20px;
-    }
-    /* Language colors */
-    .lang-python {
-      color: #39ff14; /* neon green */
-    }
-    .lang-javascript {
-      color: #ffd700; /* gold */
-    }
-    .lang-html {
-      color: #ff69b4; /* hot pink */
-    }
-    .lang-css {
-      color: #00ffff; /* cyan */
-    }
+  display: flex;  /* or block, but flex keeps icon + text aligned */
+  align-items: center;
+  margin-bottom: 12px;  /* space between each skill */
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+  margin-right: 0; /* remove side margin since each is on a separate line */
+}
+
+
+    .languages span i, .languages span img {
+  margin-right: 6px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+  
+    
+    
 
     /* Skills heading with gradient text, no glow */
     .skills-heading {
@@ -203,24 +199,8 @@
       text-align: center;
     }
 
-    /* Project Links Styling */
-    .project-links {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 16px;
-    }
-    .project-links a {
-      color: #ff6f61;
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    .project-links a:hover {
-      color: #ffc371;
-    }
 
-    /* Carousel container */
+     /* Carousel container */
     .carousel-container {
       position: relative;
       width: 100%;
@@ -327,7 +307,7 @@
   color: white;
   margin-left: 6px;
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
-}
+}.languages
 
   </style>
   <!-- Font Awesome CDN for icons -->
@@ -347,7 +327,7 @@
   />
 
   <div class="about-card floating">
-  <h2>Aditya Raj <span class="title-tagline">| CODER | VIDEO EDITOR | CREATOR</span></h2>
+  <h2>Aditya Raj <span class="title-tagline">     VIDEO EDITOR | CREATOR</span></h2>
 
   <p>
     Hi! I'm a creative video editor and a passionate Cyber Security learner. I love combining visuals and logic to bring
@@ -356,12 +336,23 @@
 
 
     <div class="skills-heading">Skills :</div>
-    <div class="languages">
-      <span class="lang-python"><i class="fab fa-python"></i>Python</span>
-      <span class="lang-javascript"><i class="fab fa-js-square"></i>JavaScript</span>
-      <span class="lang-html"><i class="fab fa-html5"></i>HTML</span>
-      <span class="lang-css"><i class="fab fa-css3-alt"></i>CSS</span>
-    </div>
+    <div class="skills-section">
+      <div class="lang-aftereffects">
+  <img src="https://github.com/logic1391/adityaraj.github.io/blob/main/after-effects_9814095.png?raw=true" alt="After Effects" style="width:20px; height:20px; margin-right:3px;" />
+  After Effects
+</div>
+
+<div class="lang-photoshop">
+  <img src="https://github.com/logic1391/adityaraj.github.io/blob/main/adobe-photoshop_5210800.png?raw=true" alt="Photoshop" style="width:20px; height:20px; margin-right:3px;" />
+  Photoshop
+</div>
+
+<div class="lang-premierepro">
+  <img src="https://github.com/logic1391/adityaraj.github.io/blob/main/premiere-pro_9814226.png?raw=true" alt="Premiere Pro" style="width:20px; height:20px; margin-right:3px;" />
+  Premiere Pro
+</div>
+
+</div>
 
     <div class="connect-heading">Connect with Me :</div>
     <div class="connect">
@@ -396,18 +387,8 @@
     </div>
   </div>
 
-  <!-- Projects Section -->
-  <h2 class="section-title">Coding Projects</h2>
-  <p style="max-width: 600px; text-align: center; margin-bottom: 20px;">
-    Explore some of my coolest coding projects, blending creativity and functionality.
-  </p>
-
-  <!-- Added Project Links here -->
-  <div class="project-links">
-    <a href="#" target="_blank">Project 1</a> |
-    <a href="#" target="_blank">Project 2</a> |
-    <a href="#" target="_blank">Project 3</a>
-  </div>
+  
+  
 
   <!-- Carousel Section -->
   <h2 class="section-title">Video Editing Showcase</h2>
